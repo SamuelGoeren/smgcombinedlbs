@@ -63,12 +63,7 @@ const CategorySelection = () => {
     )}
 
     {(selectedCategory && (selectedCharacter || selectedCategory === '242')) && (
-
-        <Typography color='white'>
-            <Leaderboard categoryId={categoryId} characterId={characterId}/>
-
-
-        </Typography>
+        <Leaderboard categoryId={categoryId} characterId={characterId}/>
     )}
     </div>
   );

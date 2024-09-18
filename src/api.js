@@ -1,4 +1,5 @@
 import { MODE, MODE_ID_TO_NAME } from "./configs";
+import { formatISO8601Duration } from "./utils";
 
 /*
     gets entire leaderboard data for category
@@ -53,7 +54,12 @@ export async function getLbDataReduced(endpoint, params) {
             const modeId = pos.run.values[MODE];
             const mode = MODE_ID_TO_NAME[modeId];
             
-            lb.push([(playerIndex + 1), username, formatISO8601Duration(pos.run.times.primary), mode, date])
+            lb.push(
+                {"place": (playerIndex + 1), 
+                "runner" : username, 
+                "time" : formatISO8601Duration(pos.run.times.primary),
+                "mode" : mode, 
+                "date" : date})
             playerIndex++;
         };
     }

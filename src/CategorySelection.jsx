@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import CategoryButton from './CategoryButton';
 import { Stack, Typography } from '@mui/material';
 import * as config from './configs';
+import Leaderboard from './Leaderboard';
 
 const CategorySelection = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -64,8 +65,7 @@ const CategorySelection = () => {
     {(selectedCategory && (selectedCharacter || selectedCategory === '242')) && (
 
         <Typography color='white'>
-            Category: {selectedCategory}, ID: {categoryId} <br/>
-            Character: {selectedCharacter}, ID: {characterId} <br/>
+            <Leaderboard categoryId={categoryId} characterId={characterId}/>
 
 
         </Typography>

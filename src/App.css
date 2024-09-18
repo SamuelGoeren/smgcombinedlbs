@@ -1,4 +1,19 @@
+/* Set the background color for the entire page */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #0D1117; /* Dark background */
+  color: white; /* Optional: Set text color to white for better contrast */
+  overflow-x: hidden;
+}
+
+/* Ensure main content takes full height */
 #maincontent {
-  background-color: #0D1117;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 20px;
 }

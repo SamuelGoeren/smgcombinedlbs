@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { Typography } from '@mui/material';
 import { CAT_ANY, CHARACTER_ANY, CAT_120, CHARACTER_120, SRC_BASE_URL, SMG1 } from './configs';
 import { getLbDataReduced } from './api';
 import { getCachedData, setCachedData } from './cache'; // Import caching functions
+import LeaderboardTable from './LeaderboardTable';
 
 const Leaderboard = ({ categoryId, characterId }) => {
   const [lbData, setLbData] = useState([]);
@@ -64,40 +65,7 @@ const Leaderboard = ({ categoryId, characterId }) => {
   }
 
   return (
-    <div>
-      {/* Display last updated time in UTC */}
-      {lastUpdated && (
-        <Typography variant="body2">
-          Last updated: {lastUpdated.toUTCString()}
-        </Typography>
-      )}
-
-      {/* Leaderboard Table */}
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Place</TableCell>
-              <TableCell>Runner</TableCell>
-              <TableCell>Time</TableCell>
-              <TableCell>Mode</TableCell>
-              <TableCell>Date</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {lbData.map((row, index) => (
-              <TableRow key={index}>
-                <TableCell>{row.place}</TableCell>
-                <TableCell>{row.runner}</TableCell>
-                <TableCell>{row.time}</TableCell>
-                <TableCell>{row.mode}</TableCell>
-                <TableCell>{row.date}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </div>
+    <LeaderboardTable lbData={lbData} lastUpdated={lastUpdated}/>
   );
 };
 

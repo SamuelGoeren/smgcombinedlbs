@@ -8,6 +8,11 @@ const theme = createTheme({
           backgroundColor: '#151B23', // Set background color for TableCell
           color: 'white', // Set text color
           border: '1px solid white', // Set border color
+          // Define responsive padding
+          padding: '8px 16px',
+          '@media (max-width:600px)': {
+            padding: '4px 8px',
+          },
         },
       },
     },

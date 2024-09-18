@@ -12,11 +12,14 @@ function App() {
 
       <Box
         sx={{
-          width: '50vw',
-          boxShadow: 3,
+          width: {
+            xs: '90vw',
+            sm: '50vw',
+          },
           textAlign: 'center',
           backgroundColor: '#151B23',
           padding: '20px',
+          border: '1px solid #2A2F3E'
         }}
       >
         <CategorySelection />

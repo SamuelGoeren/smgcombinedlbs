@@ -1,4 +1,4 @@
-const CACHE_VALIDITY_DURATION = 1 * 60 * 60 * 1000;
+const CACHE_VALIDITY_DURATION = 0 // 1 * 60 * 60 * 1000;
 
 export function getCachedData(type) {
   const cached = JSON.parse(localStorage.getItem(type));

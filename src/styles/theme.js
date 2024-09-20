@@ -8,27 +8,25 @@ const theme = createTheme({
           backgroundColor: '#151B23', // Set background color for TableCell
           color: 'white', // Set text color
           border: '1px solid white', // Set border color
-          // Define responsive padding
-          padding: '8px 16px',
+          padding: '8px 16px', // Define padding
           '@media (max-width:600px)': {
             padding: '4px 8px',
           },
+          '&:hover': {
+            backgroundColor: '#2c3e50', // Change background color on hover
+            cursor: 'pointer', // Change cursor to pointer on hover
+            transition: 'background-color 0.3s ease', // Smooth transition on hover
+          },
         },
+      time: {
+        
+      }
       },
     },
     MuiTableHead: {
       styleOverrides: {
         root: {
           backgroundColor: '#151B23', // Ensure table headers match cell background
-        },
-      },
-    },
-    MuiTableRow: {
-      styleOverrides: {
-        root: {
-          '&:nth-of-type(odd)': {
-            backgroundColor: '#1e2330', // Optional: alternate row background color
-          },
         },
       },
     },

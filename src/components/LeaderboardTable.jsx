@@ -1,17 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { ThemeProvider } from '@mui/material/styles'; // Import ThemeProvider
+import theme from './../styles/theme'; // Import the custom theme with hover effect
 
-const LeaderboardTable = ({lbData, lastUpdated}) => {
+const LeaderboardTable = ({ lbData, lastUpdated }) => {
+  const [hoveredRowIndex, setHoveredRowIndex] = useState(null);
 
-    return(
-        <div>
-        {/* Display last updated time in UTC */}
+  const runRedirect = (url) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
+  return (
+    <ThemeProvider theme={theme}> {/* Apply the theme here */}
+      <div>
         {lastUpdated && (
           <Typography variant="body2">
             Last updated: {lastUpdated.toUTCString()}
           </Typography>
         )}
-  
+
         {/* Leaderboard Table */}
         <TableContainer component={Paper}>
           <Table>
@@ -26,7 +33,10 @@ const LeaderboardTable = ({lbData, lastUpdated}) => {
             </TableHead>
             <TableBody>
               {lbData.map((row, index) => (
-                <TableRow key={index}>
+                <TableRow
+                  key={index}
+                  onClick={() => runRedirect(row.weblink)}
+                >
                   <TableCell>{row.place}</TableCell>
                   <TableCell>{row.runner}</TableCell>
                   <TableCell>{row.time}</TableCell>
@@ -38,7 +48,8 @@ const LeaderboardTable = ({lbData, lastUpdated}) => {
           </Table>
         </TableContainer>
       </div>
-    )
-}
+    </ThemeProvider>
+  );
+};
 
 export default LeaderboardTable;

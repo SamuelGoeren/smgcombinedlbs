@@ -32,6 +32,7 @@ export async function getLbDataReduced(endpoint, params) {
 
     if (res && res.data && res.data.runs) {
         for(const pos of res.data.runs){
+            const weblink = pos.run.weblink;
             const playerObj = pos.run.players[0];
             let username = "unknown player";
 
@@ -59,7 +60,8 @@ export async function getLbDataReduced(endpoint, params) {
                 "runner" : username, 
                 "time" : formatISO8601Duration(pos.run.times.primary),
                 "mode" : mode, 
-                "date" : date})
+                "date" : date,
+                "weblink" : weblink})
             playerIndex++;
         };
     }

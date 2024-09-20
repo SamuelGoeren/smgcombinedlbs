@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import CategoryButton from './CategoryButton';
-import { Stack, Typography } from '@mui/material';
-import * as config from './configs';
+import { Stack } from '@mui/material';
+import * as config from './../util/configs'
 import Leaderboard from './Leaderboard';
 
 const CategorySelection = () => {

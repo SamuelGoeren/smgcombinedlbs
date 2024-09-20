@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Typography } from '@mui/material';
-import { CAT_ANY, CHARACTER_ANY, CAT_120, CHARACTER_120, SRC_BASE_URL, SMG1 } from './configs';
-import { getLbDataReduced } from './api';
-import { getCachedData, setCachedData } from './cache'; // Import caching functions
+import { CAT_ANY, CHARACTER_ANY, CAT_120, CHARACTER_120, SRC_BASE_URL, SMG1 } from '../util/configs';
+import { getLbDataReduced } from '../util/api';
+import { getCachedData, setCachedData } from '../util/cache'; // Import caching functions
 import LeaderboardTable from './LeaderboardTable';
 
 const Leaderboard = ({ categoryId, characterId }) => {

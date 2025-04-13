@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
-import { ThemeProvider } from '@mui/material/styles'; // Import ThemeProvider
-import theme from './../styles/theme'; // Import the custom theme with hover effect
+import { ThemeProvider } from '@mui/material/styles';
+import theme from './../styles/theme';
+import { TABLE_HEADER } from '../util/configs';
 
 const LeaderboardTable = ({ lbData, lastUpdated }) => {
-  const [hoveredRowIndex, setHoveredRowIndex] = useState(null);
 
   const runRedirect = (url) => {
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
   return (
-    <ThemeProvider theme={theme}> {/* Apply the theme here */}
+    <ThemeProvider theme={theme}>
       <div>
         {lastUpdated && (
           <Typography variant="body2">
@@ -19,16 +19,13 @@ const LeaderboardTable = ({ lbData, lastUpdated }) => {
           </Typography>
         )}
 
-        {/* Leaderboard Table */}
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Place</TableCell>
-                <TableCell>Runner</TableCell>
-                <TableCell>Time</TableCell>
-                <TableCell>Mode</TableCell>
-                <TableCell>Date</TableCell>
+                {TABLE_HEADER.map((t) => (
+                  <TableCell>{t}</TableCell>
+                ))}
               </TableRow>
             </TableHead>
             <TableBody>

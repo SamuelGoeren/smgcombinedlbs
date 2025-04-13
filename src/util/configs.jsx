@@ -1,5 +1,5 @@
 export const SRC_BASE_URL = 'https://www.speedrun.com/api/v1';
-export const TABLE_HEADER = ["Place", "Name", "Time", "Mode",  "Date"]
+export const TABLE_HEADER = ["Place", "Runner", "Time", "Mode",  "Date"]
 
 export const GAME_DATA = {
     smg1 : {

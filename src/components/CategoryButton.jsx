@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 const CategoryButton = ({ category, isSelected, onClick }) => {
   const buttonStyle = {
     margin: '5px',
-    backgroundColor: isSelected ? '#1976d2' : '#e0e0e0', // Adjust colors as needed
+    backgroundColor: isSelected ? '#1976d2' : '#e0e0e0',
     color: isSelected ? 'white' : 'black',
   };
 

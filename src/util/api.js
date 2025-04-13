@@ -1,4 +1,3 @@
-import { MODE, MODE_ID_TO_NAME } from "./configs";
 import { formatISO8601Duration } from "./utils";
 
 /*
@@ -24,7 +23,7 @@ export async function fetchLbData(endpoint, params) {
     represents leaderboard
     each subarray will be a line in the csv export
 */
-export async function getLbDataReduced(endpoint, params) {
+export async function getLbDataReduced(endpoint, params, modeData) {
     let lb = [];
     const res = await fetchLbData(endpoint, params);
     let playerIndex = 0;
@@ -52,8 +51,8 @@ export async function getLbDataReduced(endpoint, params) {
                 date = pos.run.submitted.split("T")[0];
             }
 
-            const modeId = pos.run.values[MODE];
-            const mode = MODE_ID_TO_NAME[modeId];
+            const modeId = pos.run.values[modeData.id];
+            const mode = modeData[modeId];
             
             lb.push(
                 {"place": (playerIndex + 1), 

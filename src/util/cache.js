@@ -10,12 +10,10 @@ export function getCachedData(type) {
   const currentTime = Date.now();
   const cacheAge = currentTime - cached.timestamp;
 
-  // If the cache is less than 1 hour old, return both the cached data and the timestamp
   if (cacheAge < CACHE_VALIDITY_DURATION) {
     return { data: cached.data, timestamp: cached.timestamp };
   }
 
-  // Otherwise, the cache is expired, return null
   return null;
 }
 

@@ -1,27 +1,34 @@
 import React, { useState } from 'react';
 import CategoryButton from './CategoryButton';
 import { Stack } from '@mui/material';
-import * as config from './../util/configs'
 import Leaderboard from './Leaderboard';
+import { GAME_DATA } from '../util/configs';
 
-const CategorySelection = () => {
+const CategorySelection = ({game}) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedCharacter, setSelectedCharacter] = useState(null);
-  const [categoryId, setCategoryId] = useState(null);
   const [characterId, setCharacterId] = useState(null);
+  const [showCharacterChoices, setShowCharacterChoices] = useState(false);
+
+  const currentGameData = GAME_DATA[game];
 
   const handleCategoryClick = (category) => {
-    setCategoryId(config.CAT_NAME_TO_ID[category]);
     setSelectedCharacter(null);
     setSelectedCategory(category);
+
+    if(currentGameData.categories[category]?.characters){
+      setShowCharacterChoices(true);
+    } else {
+      setShowCharacterChoices(false);
+    }
   };
 
   const handleCharacterClick = (character) => {
-    if(selectedCategory === 'any'){
-        setCharacterId(config.CHAR_NAME_TO_ID_ANY[character]);
-    }
-    else if(selectedCategory === '120'){
-        setCharacterId(config.CHAR_NAME_TO_ID_120[character]);
+
+    const categoryData = currentGameData.categories[selectedCategory];
+
+    if(categoryData?.characters?.id){
+      setCharacterId(categoryData.characters[character])
     }
 
     setSelectedCharacter(character);
@@ -30,24 +37,19 @@ const CategorySelection = () => {
   return (
     <div>
     <Stack spacing={2} direction="row" sx={{"justifyContent": "space-evenly"}}>
-      <CategoryButton
-        category="any%"
-        isSelected={selectedCategory === 'any'}
-        onClick={() => handleCategoryClick('any')}
-      />
-      <CategoryButton
-        category="120"
-        isSelected={selectedCategory === '120'}
-        onClick={() => handleCategoryClick('120')}
-      />
-      <CategoryButton
-        category="242"
-        isSelected={selectedCategory === '242'}
-        onClick={() => handleCategoryClick('242')}
-      />
+      {(currentGameData.categoryOrder.map((catIdent) => {
+        const categoryData = currentGameData.categories[catIdent]
+        return(
+          <CategoryButton
+            category={categoryData.name}
+            isSelected={selectedCategory === catIdent}
+            onClick={() => handleCategoryClick(catIdent)}
+          />
+        )
+      }))}
     </Stack>
 
-    {(selectedCategory && selectedCategory !== '242') && (
+    {(showCharacterChoices) && (
         <Stack spacing={2} direction="row" sx={{"justifyContent": "space-evenly"}}>
             <CategoryButton 
             category="Mario"
@@ -62,8 +64,8 @@ const CategorySelection = () => {
         </Stack>
     )}
 
-    {(selectedCategory && (selectedCharacter || selectedCategory === '242')) && (
-        <Leaderboard categoryId={categoryId} characterId={characterId}/>
+    {(selectedCategory && (selectedCharacter || !showCharacterChoices)) && (
+        <Leaderboard currentGameData={currentGameData} category={selectedCategory} characterId={characterId}/>
     )}
     </div>
   );

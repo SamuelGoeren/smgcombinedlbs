@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CategoryButton from './CategoryButton';
 import { Stack } from '@mui/material';
 import Leaderboard from './Leaderboard';
@@ -9,6 +9,13 @@ const CategorySelection = ({game}) => {
   const [selectedCharacter, setSelectedCharacter] = useState(null);
   const [characterId, setCharacterId] = useState(null);
   const [showCharacterChoices, setShowCharacterChoices] = useState(false);
+
+  useEffect(() => {
+    setSelectedCategory(null);
+    setSelectedCharacter(null);
+    setCharacterId(null);
+    setShowCharacterChoices(false);
+  }, [game])
 
   const currentGameData = GAME_DATA[game];
 

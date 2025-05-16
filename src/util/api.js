@@ -28,6 +28,8 @@ export async function getLbDataReduced(endpoint, params, modeData) {
     const res = await fetchLbData(endpoint, params);
     let playerIndex = 0;
     let unknownPlayers = false;
+    let previousTime = null;
+    let previousPlace = 1;
 
     if (res && res.data && res.data.runs) {
         for(const pos of res.data.runs){
@@ -53,22 +55,35 @@ export async function getLbDataReduced(endpoint, params, modeData) {
 
             const modeId = pos.run.values[modeData.id];
             const mode = modeData[modeId];
+
+            const currentTime = formatISO8601Duration(pos.run.times.primary);
+
+            let place;
+            if (previousTime !== null && currentTime === previousTime) {
+                place = previousPlace;
+            } else {
+                place = playerIndex + 1;
+                previousPlace = place;
+                previousTime = currentTime;
+            }
             
             lb.push(
-                {"place": (playerIndex + 1), 
-                "runner" : username, 
-                "time" : formatISO8601Duration(pos.run.times.primary),
-                "mode" : mode, 
-                "date" : date,
-                "weblink" : weblink})
+                {
+                    "place": place, 
+                    "runner" : username, 
+                    "time" : currentTime,
+                    "mode" : mode, 
+                    "date" : date,
+                    "weblink" : weblink
+                }
+            );
+
             playerIndex++;
         };
     }
-    else{
-    }
 
     if(unknownPlayers){
-        console.warn("Some players will be marked as \"unknown\" because they might have deleted their speedrun.com account.")
+        console.warn("Some players will be marked as \"unknown\" because they might have deleted their speedrun.com account.");
     }
 
     return lb;

@@ -32,7 +32,7 @@ const Leaderboard = ({ currentGameData, category, characterId }) => {
     const queryParams = generateQueryParameters();
     const LB_URL = `${SRC_BASE_URL}/leaderboards/${currentGameData.id}/category/${categoryId}`;
 
-    const cachedData = false //getCachedData(leaderboardType);
+    const cachedData = getCachedData(leaderboardType);
 
     if (cachedData) {
       setLbData(cachedData.data);

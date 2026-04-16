@@ -29,13 +29,17 @@ export async function getLbDataReduced(endpoint, params, modeData) {
     let playerIndex = 0;
     let unknownPlayers = false;
     let previousTime = null;
+    let placeCounter = 0;
     let previousPlace = 1;
+
+    let seenRunners = new Set();
 
     if (res && res.data && res.data.runs) {
         for(const pos of res.data.runs){
             const weblink = pos.run.weblink;
             const playerObj = pos.run.players[0];
             let username = "unknown player";
+            let userId = playerObj.id;
 
             if(playerObj.rel === "user"){
                 username = res.data.players.data[playerIndex].names.international;
@@ -47,6 +51,13 @@ export async function getLbDataReduced(endpoint, params, modeData) {
                 console.warn(`Unknown user on place ${playerIndex + 1}`);
                 unknownPlayers = true;
             }
+
+            if (seenRunners.has(userId)) {
+                playerIndex++;
+                continue;
+            }
+            seenRunners.add(userId);
+            placeCounter++;
 
             let date = pos.run.date;
             if(date === null){
@@ -62,11 +73,11 @@ export async function getLbDataReduced(endpoint, params, modeData) {
             if (previousTime !== null && currentTime === previousTime) {
                 place = previousPlace;
             } else {
-                place = playerIndex + 1;
+                place = placeCounter;
                 previousPlace = place;
                 previousTime = currentTime;
             }
-            
+        
             lb.push(
                 {
                     "place": place, 

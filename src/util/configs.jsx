@@ -1,6 +1,9 @@
 export const SRC_BASE_URL = 'https://www.speedrun.com/api/v1';
 export const TABLE_HEADER = ["Place", "Runner", "Time", "Mode",  "Date"]
 
+export const PLATFORM_ID_S1 = "7m6ylw9p";
+export const PLATFORM_ID_S2 = "3167lw9q";
+
 export const GAME_DATA = {
     smg1 : {
         id: "pd0wg21e",

@@ -30,7 +30,7 @@ const Leaderboard = ({ currentGameData, category, characterId }) => {
     const queryParams = generateQueryParameters();
     const LB_URL = `${SRC_BASE_URL}/leaderboards/${currentGameData.id}/category/${categoryId}`;
 
-    const cachedData = getCachedData(leaderboardType);
+    const cachedData = false //getCachedData(leaderboardType);
 
     if (cachedData) {
       setLbData(cachedData.data);
@@ -40,7 +40,7 @@ const Leaderboard = ({ currentGameData, category, characterId }) => {
       const fetchLeaderboardData = async () => {
         setLoading(true);
         try {
-          const data = await getLbDataReduced(LB_URL, queryParams, modeData);
+          const data = await getLbDataReduced(LB_URL, queryParams, currentGameData.id, modeData);
           setLbData(data);
           setCachedData(leaderboardType, data);
           setLastUpdated(new Date());

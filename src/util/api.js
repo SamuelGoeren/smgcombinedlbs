@@ -1,4 +1,6 @@
+import { GAME_DATA, PLATFORM_ID_S1, PLATFORM_ID_S2 } from "./configs";
 import { formatISO8601Duration } from "./utils";
+
 
 /*
     gets entire leaderboard data for category
@@ -23,7 +25,7 @@ export async function fetchLbData(endpoint, params) {
     represents leaderboard
     each subarray will be a line in the csv export
 */
-export async function getLbDataReduced(endpoint, params, modeData) {
+export async function getLbDataReduced(endpoint, params, gameId, modeData) {
     let lb = [];
     const res = await fetchLbData(endpoint, params);
     let playerIndex = 0;
@@ -31,13 +33,14 @@ export async function getLbDataReduced(endpoint, params, modeData) {
     let previousTime = null;
     let placeCounter = 0;
     let previousPlace = 1;
-
     let seenRunners = new Set();
-
+    
     if (res && res.data && res.data.runs) {
         for(const pos of res.data.runs){
             const weblink = pos.run.weblink;
             const playerObj = pos.run.players[0];
+            const platformId = pos.run.system.platform;
+            const smg2_remaster = (gameId === GAME_DATA.smg2.id && (platformId === PLATFORM_ID_S1 || platformId === PLATFORM_ID_S2));
             let username = "unknown player";
             let userId = playerObj.id;
 
@@ -52,7 +55,7 @@ export async function getLbDataReduced(endpoint, params, modeData) {
                 unknownPlayers = true;
             }
 
-            if (seenRunners.has(userId)) {
+            if (seenRunners.has(userId) || smg2_remaster) {
                 playerIndex++;
                 continue;
             }

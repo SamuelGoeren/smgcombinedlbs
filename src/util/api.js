@@ -42,7 +42,7 @@ export async function getLbDataReduced(endpoint, params, gameId, modeData) {
             const platformId = pos.run.system.platform;
             const smg2_remaster = (gameId === GAME_DATA.smg2.id && (platformId === PLATFORM_ID_S1 || platformId === PLATFORM_ID_S2));
             let username = "unknown player";
-            let userId = playerObj.id;
+            let userId = playerObj?.id;
 
             if(playerObj.rel === "user"){
                 username = res.data.players.data[playerIndex].names.international;

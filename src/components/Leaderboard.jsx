@@ -11,7 +11,7 @@ const Leaderboard = ({ currentGameData, category, characterId }) => {
   const [loading, setLoading] = useState(true);
 
   const categoryData = currentGameData.categories[category];
-  const categoryId = categoryData.id;
+  const categoryId = categoryData?.id;
   const modeData = currentGameData.modes;
 
   const leaderboardType = `${categoryId}-${characterId}`;
@@ -27,8 +27,6 @@ const Leaderboard = ({ currentGameData, category, characterId }) => {
   }
 
   useEffect(() => {
-    if (!currentGameData?.id) return;
-
     const queryParams = generateQueryParameters();
     const LB_URL = `${SRC_BASE_URL}/leaderboards/${currentGameData.id}/category/${categoryId}`;
 
@@ -42,7 +40,7 @@ const Leaderboard = ({ currentGameData, category, characterId }) => {
       const fetchLeaderboardData = async () => {
         setLoading(true);
         try {
-          const data = await getLbDataReduced(LB_URL, queryParams, currentGameData?.id, modeData);
+          const data = await getLbDataReduced(LB_URL, queryParams, currentGameData.id, modeData);
           setLbData(data);
           setCachedData(leaderboardType, data);
           setLastUpdated(new Date());
@@ -55,7 +53,7 @@ const Leaderboard = ({ currentGameData, category, characterId }) => {
 
       fetchLeaderboardData();
     }
-  }, [category, characterId, leaderboardType, currentGameData?.id]);
+  }, [category, characterId, leaderboardType]);
 
   if (loading) {
     return (
